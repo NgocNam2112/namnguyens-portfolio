@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { StarBackground } from '@/components/StarBackground';
+import { Navbar } from '@/components/Navbar';
+import { AnimatedCursor } from '@/components/AnimatedCursor';
+import { QueryProvider } from '@/components/provider/QueryProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,8 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <StarBackground />
-        {children}
+        <QueryProvider>
+          <AnimatedCursor />
+          <Navbar />
+          <StarBackground />
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );
