@@ -16,7 +16,7 @@ export function AnimatedHighlightText({
     }, 5000);
     // Clean up interval on unmount
     return () => clearInterval(interval);
-  }, []);
+  }, [words.length]);
 
   return (
     <div className="2xl:text-7xl text-5xl tracking-tighter md:text-6xl md:leading-[4rem] w-fit gap-1.5">
