@@ -21,10 +21,17 @@ interface Meteor {
 }
 
 export const StarBackground = () => {
+  const [mounted, setMounted] = useState(false);
   const [stars, setStars] = useState<Star[]>([]);
   const [meteors, setMeteors] = useState<Meteor[]>([]);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     generateStars();
     generateMeteors();
 
@@ -35,7 +42,7 @@ export const StarBackground = () => {
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [mounted]);
 
   const generateStars = () => {
     const numberOfStars = Math.floor(
@@ -66,15 +73,20 @@ export const StarBackground = () => {
       newMeteors.push({
         id: i,
         size: Math.random() * 2 + 1,
-        x: Math.random() * 60 + 20, // Position across the top portion
-        y: Math.random() * 20, // Start from top
-        delay: 0, // Remove delay to show immediately
-        animationDuration: Math.random() * 3 + 2, // Faster animation
+        x: Math.random() * 60 + 20,
+        y: Math.random() * 20,
+        delay: 0,
+        animationDuration: Math.random() * 3 + 2,
       });
     }
 
     setMeteors(newMeteors);
   };
+
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
