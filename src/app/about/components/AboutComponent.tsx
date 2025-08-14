@@ -46,7 +46,10 @@ const AboutComponent = () => {
               {about?.[0]?.title || ''}
             </motion.h3>
 
-            <motion.p className="text-muted-foreground" variants={itemVariants}>
+            <motion.p
+              className="text-muted-foreground text-justify"
+              variants={itemVariants}
+            >
               I bring <b className="text-primary">4+ years</b> of frontend and{' '}
               <b className="text-primary">2+ years</b> of backend experience
               building responsive, scalable web applications. On the frontend I
@@ -59,7 +62,10 @@ const AboutComponent = () => {
               <b className="text-primary">MongoDB</b>.
             </motion.p>
 
-            <motion.p className="text-muted-foreground" variants={itemVariants}>
+            <motion.p
+              className="text-muted-foreground text-justify"
+              variants={itemVariants}
+            >
               I have hands-on DevOps experience with{' '}
               <b className="text-primary">Docker</b> and{' '}
               <b className="text-primary">Kubernetes</b>, CI/CD using{' '}
@@ -75,7 +81,7 @@ const AboutComponent = () => {
             >
               <motion.div variants={buttonVariants}>
                 <Link href="/contact">
-                  <Button className="cosmic-button rounded-full px-6 py-2">
+                  <Button className="cosmic-button w-full rounded-full px-6 py-2">
                     Get In Touch
                   </Button>
                 </Link>
@@ -89,7 +95,7 @@ const AboutComponent = () => {
                 >
                   <Button
                     variant="outline"
-                    className="cosmic-button px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
+                    className="cosmic-button w-full px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
                   >
                     View My CV
                   </Button>
@@ -119,7 +125,7 @@ const AboutComponent = () => {
                   <h4 className="font-semibold text-lg">
                     Frontend Development
                   </h4>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-justify">
                     Building high-quality interfaces with{' '}
                     <b className="text-primary">
                       NextJS, ReactJS, NuxtJS, VueJS
@@ -145,7 +151,7 @@ const AboutComponent = () => {
                 </motion.div>
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Backend Development</h4>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-justify">
                     Designing and delivering REST APIs and services with
                     <b className="text-primary">
                       {' '}
@@ -176,7 +182,7 @@ const AboutComponent = () => {
 
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">DevOps & Deployment</h4>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-justify">
                     Shipping to production with{' '}
                     <b className="text-primary">Docker</b>,{' '}
                     <b className="text-primary">Kubernetes</b>, and

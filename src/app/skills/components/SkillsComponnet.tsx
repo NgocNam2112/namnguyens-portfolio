@@ -16,7 +16,7 @@ export const SkillsComponent = () => {
 
   return (
     <motion.section
-      className="py-24 relative bg-secondary/30"
+      className="pt-24 relative bg-secondary/30"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}

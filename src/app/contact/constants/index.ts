@@ -21,73 +21,47 @@ export const itemVariants = {
   },
 };
 
-export const carouselVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      ease: 'easeOut' as const,
-      delay: 0.4,
-    },
-  },
-};
-
-export const floatingVariants = {
-  initial: { y: 0 },
-  float: {
-    y: [-5, 5, -5],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: 'easeInOut' as const,
-    },
-  },
-};
-
-export const scaleVariants = {
-  hidden: { scale: 0.8, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: 'easeOut' as const,
-    },
-  },
-};
-
-export const cardVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
+export const titleVariants = {
+  hidden: { opacity: 0, y: -20 },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.8,
       ease: 'easeOut' as const,
     },
   },
 };
 
-export const contentVariants = {
+export const iconVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: 'easeOut' as const,
+    },
+  },
+};
+
+export const socialVariants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
-      delay: 0.2,
+      duration: 0.5,
+      ease: 'easeOut' as const,
     },
   },
 };
 
-export const imageVariants = {
-  hidden: { opacity: 0, scale: 1.1 },
+export const formVariants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
-    scale: 1,
+    y: 0,
     transition: {
       duration: 0.6,
       ease: 'easeOut' as const,
@@ -95,15 +69,28 @@ export const imageVariants = {
   },
 };
 
-export const techVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+export const fieldVariants = {
+  hidden: { opacity: 0, x: -20 },
   visible: (i: number) => ({
     opacity: 1,
-    scale: 1,
+    x: 0,
     transition: {
-      duration: 0.3,
-      delay: 0.3 + i * 0.1,
+      duration: 0.5,
+      delay: i * 0.1,
       ease: 'easeOut' as const,
     },
   }),
+};
+
+export const buttonVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      delay: 0.4,
+      ease: 'easeOut' as const,
+    },
+  },
 };

@@ -1,9 +1,11 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { useContact } from '../hook/useContactService';
 import Loading from '@/components/common/Loading';
 import ContactForm from './ContactForm';
 import ContactInfor from './ContactInfor';
+import { containerVariants, itemVariants, titleVariants } from '../constants';
 
 export const ContactComponent = () => {
   const { data: contact, isLoading } = useContact();
@@ -13,22 +15,73 @@ export const ContactComponent = () => {
   }
 
   return (
-    <section className="py-24 px-4 relative bg-secondary/30">
+    <motion.section
+      className="py-24 px-4 relative bg-secondary/30"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={containerVariants}
+    >
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold mb-4 text-center"
+          variants={titleVariants}
+        >
           Get In <span className="text-primary"> Touch</span>
-        </h2>
+        </motion.h2>
 
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+        <motion.p
+          className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto"
+          variants={itemVariants}
+        >
           Have a project in mind or want to collaborate? Feel free to reach out.
           I&apos;m always open to discussing new opportunities.
-        </p>
+        </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <ContactInfor contact={contact} />
-          <ContactForm />
-        </div>
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-12"
+          variants={itemVariants}
+        >
+          <motion.div
+            whileHover={{
+              scale: 1.02,
+              y: -5,
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+            whileTap={{ scale: 0.98 }}
+            animate={{
+              y: [0, -2, 0],
+              transition: {
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              },
+            }}
+          >
+            <ContactInfor contact={contact} />
+          </motion.div>
+
+          <motion.div
+            whileHover={{
+              scale: 1.02,
+              y: -5,
+              transition: { duration: 0.3, ease: 'easeOut' },
+            }}
+            whileTap={{ scale: 0.98 }}
+            animate={{
+              y: [0, 2, 0],
+              transition: {
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: 2,
+              },
+            }}
+          >
+            <ContactForm />
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
