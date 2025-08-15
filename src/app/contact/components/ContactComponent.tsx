@@ -6,11 +6,13 @@ import Loading from '@/components/common/Loading';
 import ContactForm from './ContactForm';
 import ContactInfor from './ContactInfor';
 import { containerVariants, itemVariants, titleVariants } from '../constants';
+import { useState } from 'react';
 
 export const ContactComponent = () => {
-  const { data: contact, isLoading } = useContact();
+  const { data: contact, isLoading: isContactLoading } = useContact();
+  const [loading, setLoading] = useState(false);
 
-  if (isLoading) {
+  if (isContactLoading || loading) {
     return <Loading />;
   }
 
@@ -78,7 +80,7 @@ export const ContactComponent = () => {
               },
             }}
           >
-            <ContactForm />
+            <ContactForm setLoading={setLoading} />
           </motion.div>
         </motion.div>
       </div>
