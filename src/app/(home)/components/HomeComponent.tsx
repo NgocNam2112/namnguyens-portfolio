@@ -7,6 +7,9 @@ import { MyAvatar } from '@/components/MyAvatar';
 import { useProfile } from '../hooks/useProfileService';
 import Loading from '@/components/common/Loading';
 import Link from 'next/link';
+import TextWrapper from '@/components/common/wrapper/TextWrapper';
+import ContainerWrapper from '@/components/common/wrapper/ContainerWrapper';
+import SelectionWrapper from '@/components/common/wrapper/SelectionWrapper';
 
 const HomeComponent = () => {
   const { data: profile, isLoading } = useProfile();
@@ -16,9 +19,18 @@ const HomeComponent = () => {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center">
-      <div className="container max-w-4xl mx-auto text-center z-10">
-        <div className="space-y-8">
+    <SelectionWrapper
+      padding="none"
+      container={false}
+      className="relative min-h-screen flex items-center justify-center"
+    >
+      <ContainerWrapper
+        size="lg"
+        padding="md"
+        maxWidth="3xl"
+        className="text-center z-10"
+      >
+        <div className="space-y-6 sm:space-y-8">
           {/* Avatar */}
           <div className="flex justify-center">
             <MyAvatar
@@ -29,37 +41,45 @@ const HomeComponent = () => {
           </div>
 
           {/* Content */}
-          <div className="space-y-6">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              <span className="opacity-0 animate-fade-in"> Hi, I&apos;m</span>
-              <span className="text-primary opacity-0 animate-fade-in-delay-1">
-                {' '}
+          <div className="space-y-4 sm:space-y-6">
+            <TextWrapper
+              variant="h1"
+              weight="bold"
+              className="tracking-tight opacity-0 animate-fade-in text-center"
+            >
+              <span>Hi, I&apos;m</span>
+              <span className="text-primary opacity-0 animate-fade-in-delay-1 ml-2">
                 {profile?.[0]?.firstName || ''}
               </span>
               <span className="text-gradient ml-2 opacity-0 animate-fade-in-delay-2">
                 {profile?.[0]?.lastName || ''}
               </span>
-            </h1>
+            </TextWrapper>
 
-            <div className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3">
+            <TextWrapper
+              variant="p"
+              size="lg"
+              color="muted"
+              className="max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3 text-center"
+            >
               {profile?.[0]?.description || ''}
-            </div>
+            </TextWrapper>
 
-            <div className="pt-4 opacity-0 animate-fade-in-delay-4">
+            <div className="pt-2 sm:pt-4 opacity-0 animate-fade-in-delay-4">
               <Link href="/projects">
-                <Button className="cosmic-button rounded-full px-8 py-6">
+                <Button className="cosmic-button rounded-full px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base">
                   View My Work
                 </Button>
               </Link>
             </div>
           </div>
         </div>
-      </div>
+      </ContainerWrapper>
 
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-        <Mouse className="h-10 w-10 text-primary" />
+      <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
+        <Mouse className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
       </div>
-    </section>
+    </SelectionWrapper>
   );
 };
 

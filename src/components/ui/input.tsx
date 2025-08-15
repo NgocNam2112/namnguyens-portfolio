@@ -69,7 +69,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               ' bg-white border-neutral-200',
               disabled && 'cursor-not-allowed',
               (error || errorMessage) &&
-                'border-red-500 focus:border-red-500 focus:ring-0 !text-red-500',
+                'border-red-500 focus:border-red-500 focus:ring-0',
               prefixIcon && 'pl-10',
               (suffixIcon || error || errorMessage || valid) && 'pr-10',
               className

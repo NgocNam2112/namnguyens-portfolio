@@ -9,6 +9,7 @@ import {
   itemVariants,
   socialVariants,
 } from '../constants';
+import TextWrapper from '@/components/common/wrapper/TextWrapper';
 
 interface ContactInforProps {
   contact: Contact[] | undefined;
@@ -18,26 +19,23 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
   return (
     <>
       <motion.div
-        className="space-y-8"
+        className="space-y-6 sm:space-y-8"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.h3
-          className="text-2xl font-semibold mb-6"
-          variants={itemVariants}
-        >
+        <TextWrapper variant="h3" weight="semibold" className="mb-4 sm:mb-6">
           Contact Information
-        </motion.h3>
+        </TextWrapper>
 
         <motion.div
-          className="space-y-6 justify-center"
+          className="space-y-4 sm:space-y-6"
           variants={containerVariants}
         >
           {contact?.[0]?.methods.map((method, index) => (
             <motion.div
               key={method.type}
-              className="flex items-start space-x-4"
+              className="flex items-start gap-3 sm:gap-4"
               variants={itemVariants}
               custom={index}
               whileHover={{
@@ -46,7 +44,7 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
               }}
             >
               <motion.div
-                className="p-3 rounded-full bg-primary/10"
+                className="p-2 sm:p-3 rounded-full bg-primary/10 flex-shrink-0"
                 variants={iconVariants}
                 whileHover={{
                   scale: 1.1,
@@ -55,11 +53,11 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
                 }}
               >
                 {method.type === 'email' ? (
-                  <Mail className="h-6 w-6 text-primary" />
+                  <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 ) : method.type === 'linkedin' ? (
-                  <Linkedin className="h-6 w-6 text-primary" />
+                  <Linkedin className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 ) : (
-                  <MapPin className="h-6 w-6 text-primary" />
+                  <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 )}
               </motion.div>
 
@@ -69,19 +67,26 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
                   x: 3,
                   transition: { duration: 0.2 },
                 }}
+                className="min-w-0 flex-1 overflow-hidden"
               >
-                <h4 className="font-medium"> {method.label}</h4>
+                <TextWrapper variant="h4" weight="medium" className="mb-1">
+                  {method.label}
+                </TextWrapper>
                 {method.type === 'linkedin' ? (
                   <Link
                     href={method.value}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-colors break-words text-sm sm:text-base block"
+                    title={method.value}
                   >
                     {method.value}
                   </Link>
                 ) : (
-                  <p className="text-muted-foreground hover:text-primary transition-colors">
+                  <p
+                    className="text-muted-foreground hover:text-primary transition-colors break-words text-sm sm:text-base block"
+                    title={method.value}
+                  >
                     {method.value}
                   </p>
                 )}
@@ -90,10 +95,16 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
           ))}
         </motion.div>
 
-        <motion.div className="pt-8" variants={socialVariants}>
-          <h4 className="font-medium mb-4"> Connect With Me</h4>
+        <motion.div className="pt-6 sm:pt-8" variants={socialVariants}>
+          <TextWrapper
+            variant="h4"
+            weight="medium"
+            className="mb-3 sm:mb-4 text-center sm:text-left"
+          >
+            Connect With Me
+          </TextWrapper>
           <motion.div
-            className="flex space-x-4 justify-center"
+            className="flex space-x-4 justify-center sm:justify-start"
             variants={containerVariants}
           >
             <motion.div
@@ -109,7 +120,7 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Linkedin className="h-6 w-6 text-primary hover:text-primary/80 transition-colors" />
+                <Linkedin className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-primary/80 transition-colors" />
               </Link>
             </motion.div>
 
@@ -126,7 +137,7 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Youtube className="h-6 w-6 text-primary hover:text-primary/80 transition-colors" />
+                <Youtube className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-primary/80 transition-colors" />
               </Link>
             </motion.div>
           </motion.div>

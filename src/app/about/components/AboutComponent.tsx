@@ -13,6 +13,10 @@ import {
 import { useAbout } from '../hooks/useAboutService';
 import Loading from '@/components/common/Loading';
 import Link from 'next/link';
+import TextWrapper from '@/components/common/wrapper/TextWrapper';
+import ContainerWrapper from '@/components/common/wrapper/ContainerWrapper';
+import SelectionWrapper from '@/components/common/wrapper/SelectionWrapper';
+import GridWrapper from '@/components/common/wrapper/GridWrapper';
 
 const AboutComponent = () => {
   const { data: about, isLoading } = useAbout();
@@ -22,181 +26,220 @@ const AboutComponent = () => {
   }
 
   return (
-    <section className="py-24 relative">
-      <motion.div
-        className="container mx-auto max-w-5xl"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold mb-12 text-center"
-          variants={itemVariants}
+    <SelectionWrapper padding="xl" container={false}>
+      <ContainerWrapper size="lg" maxWidth="3xl">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
         >
-          About <span className="text-primary"> Me</span>
-        </motion.h2>
+          <TextWrapper
+            variant="h2"
+            weight="bold"
+            align="center"
+            className="mb-8 sm:mb-12"
+          >
+            About <span className="text-primary"> Me</span>
+          </TextWrapper>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <motion.div className="space-y-6" variants={itemVariants}>
-            <motion.h3
-              className="text-2xl font-semibold"
-              variants={itemVariants}
-            >
-              {about?.[0]?.title || ''}
-            </motion.h3>
-
-            <motion.p
-              className="text-muted-foreground text-justify"
-              variants={itemVariants}
-            >
-              I bring <b className="text-primary">4+ years</b> of frontend and{' '}
-              <b className="text-primary">2+ years</b> of backend experience
-              building responsive, scalable web applications. On the frontend I
-              work with
-              <b className="text-primary"> NextJS, ReactJS, NuxtJS, VueJS</b>;
-              on the backend I use{' '}
-              <b className="text-primary">NodeJS, NestJS, ExpressJS, Java</b>{' '}
-              with
-              <b className="text-primary"> MySQL</b> and{' '}
-              <b className="text-primary">MongoDB</b>.
-            </motion.p>
-
-            <motion.p
-              className="text-muted-foreground text-justify"
-              variants={itemVariants}
-            >
-              I have hands-on DevOps experience with{' '}
-              <b className="text-primary">Docker</b> and{' '}
-              <b className="text-primary">Kubernetes</b>, CI/CD using{' '}
-              <b className="text-primary">GitLab</b> and GitHub, and deployments
-              on <b className="text-primary">AWS</b>. I care about clean
-              architecture, performance, and delivering reliable features from
-              concept to production.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 pt-4 justify-center"
-              variants={itemVariants}
-            >
-              <motion.div variants={buttonVariants}>
-                <Link href="/contact">
-                  <Button className="cosmic-button w-full rounded-full px-6 py-2">
-                    Get In Touch
-                  </Button>
-                </Link>
-              </motion.div>
-
-              <motion.div variants={buttonVariants}>
-                <Link
-                  href="/cv/NAM_NGUYEN_NGOC.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    variant="outline"
-                    className="cosmic-button w-full px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
-                  >
-                    View My CV
-                  </Button>
-                </Link>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 gap-6"
-            variants={containerVariants}
+          <GridWrapper
+            cols={{ xs: 1, lg: 2 }}
+            gap="xl"
+            className="items-center"
           >
             <motion.div
-              className="gradient-border p-6 card-hover"
-              variants={cardVariants}
-              whileHover="hover"
+              className="space-y-4 sm:space-y-6"
+              variants={itemVariants}
             >
-              <div className="flex items-start gap-4">
+              <TextWrapper variant="h3" weight="semibold">
+                {about?.[0]?.title || ''}
+              </TextWrapper>
+
+              <TextWrapper variant="p" color="muted" className="text-justify">
+                I bring <b className="text-primary">4+ years</b> of frontend and{' '}
+                <b className="text-primary">2+ years</b> of backend experience
+                building responsive, scalable web applications. On the frontend
+                I work with
+                <b className="text-primary"> NextJS, ReactJS, NuxtJS, VueJS</b>;
+                on the backend I use{' '}
+                <b className="text-primary">NodeJS, NestJS, ExpressJS, Java</b>{' '}
+                with
+                <b className="text-primary"> MySQL</b> and{' '}
+                <b className="text-primary">MongoDB</b>.
+              </TextWrapper>
+
+              <TextWrapper variant="p" color="muted" className="text-justify">
+                I have hands-on DevOps experience with{' '}
+                <b className="text-primary">Docker</b> and{' '}
+                <b className="text-primary">Kubernetes</b>, CI/CD using{' '}
+                <b className="text-primary">GitLab</b> and GitHub, and
+                deployments on <b className="text-primary">AWS</b>. I care about
+                clean architecture, performance, and delivering reliable
+                features from concept to production.
+              </TextWrapper>
+
+              <motion.div
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4 justify-center"
+                variants={itemVariants}
+              >
                 <motion.div
-                  className="p-3 rounded-full bg-primary/10"
-                  whileHover={{ rotate: 5, scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
+                  variants={buttonVariants}
+                  className="flex-1 sm:flex-none"
                 >
-                  <Code className="h-6 w-6 text-primary" />
+                  <Link href="/contact">
+                    <Button className="cosmic-button w-full rounded-full px-4 sm:px-6 py-2 text-sm sm:text-base">
+                      Get In Touch
+                    </Button>
+                  </Link>
                 </motion.div>
-                <div className="text-left">
-                  <h4 className="font-semibold text-lg">
-                    Frontend Development
-                  </h4>
-                  <p className="text-muted-foreground text-justify">
-                    Building high-quality interfaces with{' '}
-                    <b className="text-primary">
-                      NextJS, ReactJS, NuxtJS, VueJS
-                    </b>
-                    . Focused on accessibility, SEO, and performance.
-                  </p>
-                </div>
-              </div>
+
+                <motion.div
+                  variants={buttonVariants}
+                  className="flex-1 sm:flex-none"
+                >
+                  <Link
+                    href="/cv/NAM_NGUYEN_NGOC.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button
+                      variant="outline"
+                      className="cosmic-button w-full px-4 sm:px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 text-sm sm:text-base"
+                    >
+                      View My CV
+                    </Button>
+                  </Link>
+                </motion.div>
+              </motion.div>
             </motion.div>
 
             <motion.div
-              className="gradient-border p-6 card-hover"
-              variants={cardVariants}
-              whileHover="hover"
+              className="space-y-4 sm:space-y-6"
+              variants={containerVariants}
             >
-              <div className="flex items-start gap-4">
-                <motion.div
-                  className="p-3 rounded-full bg-primary/10"
-                  whileHover={{ rotate: 5, scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <User className="h-6 w-6 text-primary" />
-                </motion.div>
-                <div className="text-left">
-                  <h4 className="font-semibold text-lg">Backend Development</h4>
-                  <p className="text-muted-foreground text-justify">
-                    Designing and delivering REST APIs and services with
-                    <b className="text-primary">
-                      {' '}
-                      NodeJS, NestJS, ExpressJS, Java{' '}
-                    </b>
-                    , backed by
-                    <b className="text-primary"> MySQL</b> and{' '}
-                    <b className="text-primary">MongoDB</b>. Emphasis on clean
-                    architecture, security, and reliability.
-                  </p>
+              <motion.div
+                className="gradient-border p-4 sm:p-6 card-hover"
+                variants={cardVariants}
+                whileHover="hover"
+              >
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <motion.div
+                    className="p-2 sm:p-3 rounded-full bg-primary/10 flex-shrink-0"
+                    whileHover={{ rotate: 5, scale: 1.1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Code className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </motion.div>
+                  <div className="text-left min-w-0">
+                    <TextWrapper
+                      variant="h4"
+                      weight="semibold"
+                      className="mb-2"
+                    >
+                      Frontend Development
+                    </TextWrapper>
+                    <TextWrapper
+                      variant="p"
+                      size="sm"
+                      color="muted"
+                      className="text-justify"
+                    >
+                      Building high-quality interfaces with{' '}
+                      <b className="text-primary">
+                        NextJS, ReactJS, NuxtJS, VueJS
+                      </b>
+                      . Focused on accessibility, SEO, and performance.
+                    </TextWrapper>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
 
-            <motion.div
-              className="gradient-border p-6 card-hover"
-              variants={cardVariants}
-              whileHover="hover"
-            >
-              <div className="flex items-start gap-4">
-                <motion.div
-                  className="p-3 rounded-full bg-primary/10"
-                  whileHover={{ rotate: 5, scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Briefcase className="h-6 w-6 text-primary" />
-                </motion.div>
-
-                <div className="text-left">
-                  <h4 className="font-semibold text-lg">DevOps & Deployment</h4>
-                  <p className="text-muted-foreground text-justify">
-                    Shipping to production with{' '}
-                    <b className="text-primary">Docker</b>,{' '}
-                    <b className="text-primary">Kubernetes</b>, and
-                    <b className="text-primary"> GitLab CI/CD</b>; managing
-                    cloud infrastructure on <b className="text-primary">AWS</b>{' '}
-                    for scalable, maintainable systems.
-                  </p>
+              <motion.div
+                className="gradient-border p-4 sm:p-6 card-hover"
+                variants={cardVariants}
+                whileHover="hover"
+              >
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <motion.div
+                    className="p-2 sm:p-3 rounded-full bg-primary/10 flex-shrink-0"
+                    whileHover={{ rotate: 5, scale: 1.1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <User className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </motion.div>
+                  <div className="text-left min-w-0">
+                    <TextWrapper
+                      variant="h4"
+                      weight="semibold"
+                      className="mb-2"
+                    >
+                      Backend Development
+                    </TextWrapper>
+                    <TextWrapper
+                      variant="p"
+                      size="sm"
+                      color="muted"
+                      className="text-justify"
+                    >
+                      Designing and delivering REST APIs and services with
+                      <b className="text-primary">
+                        {' '}
+                        NodeJS, NestJS, ExpressJS, Java{' '}
+                      </b>
+                      , backed by
+                      <b className="text-primary"> MySQL</b> and{' '}
+                      <b className="text-primary">MongoDB</b>. Emphasis on clean
+                      architecture, security, and reliability.
+                    </TextWrapper>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
+
+              <motion.div
+                className="gradient-border p-4 sm:p-6 card-hover"
+                variants={cardVariants}
+                whileHover="hover"
+              >
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <motion.div
+                    className="p-2 sm:p-3 rounded-full bg-primary/10 flex-shrink-0"
+                    whileHover={{ rotate: 5, scale: 1.1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Briefcase className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </motion.div>
+
+                  <div className="text-left min-w-0">
+                    <TextWrapper
+                      variant="h4"
+                      weight="semibold"
+                      className="mb-2"
+                    >
+                      DevOps & Deployment
+                    </TextWrapper>
+                    <TextWrapper
+                      variant="p"
+                      size="sm"
+                      color="muted"
+                      className="text-justify"
+                    >
+                      Shipping to production with{' '}
+                      <b className="text-primary">Docker</b>,{' '}
+                      <b className="text-primary">Kubernetes</b>, and
+                      <b className="text-primary"> GitLab CI/CD</b>; managing
+                      cloud infrastructure on{' '}
+                      <b className="text-primary">AWS</b> for scalable,
+                      maintainable systems.
+                    </TextWrapper>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </div>
-      </motion.div>
-    </section>
+          </GridWrapper>
+        </motion.div>
+      </ContainerWrapper>
+    </SelectionWrapper>
   );
 };
 

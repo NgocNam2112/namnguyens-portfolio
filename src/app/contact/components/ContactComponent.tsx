@@ -5,8 +5,12 @@ import { useContact } from '../hook/useContactService';
 import Loading from '@/components/common/Loading';
 import ContactForm from './ContactForm';
 import ContactInfor from './ContactInfor';
-import { containerVariants, itemVariants, titleVariants } from '../constants';
+import { containerVariants } from '../constants';
 import { useState } from 'react';
+import TextWrapper from '@/components/common/wrapper/TextWrapper';
+import ContainerWrapper from '@/components/common/wrapper/ContainerWrapper';
+import SelectionWrapper from '@/components/common/wrapper/SelectionWrapper';
+import GridWrapper from '@/components/common/wrapper/GridWrapper';
 
 export const ContactComponent = () => {
   const { data: contact, isLoading: isContactLoading } = useContact();
@@ -17,73 +21,81 @@ export const ContactComponent = () => {
   }
 
   return (
-    <motion.section
-      className="py-24 px-4 relative bg-secondary/30"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
+    <SelectionWrapper
+      padding="xl"
+      container={false}
+      className="py-24 relative bg-secondary/30"
     >
-      <div className="container mx-auto max-w-5xl">
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold mb-4 text-center"
-          variants={titleVariants}
-        >
-          Get In <span className="text-primary"> Touch</span>
-        </motion.h2>
-
-        <motion.p
-          className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto"
-          variants={itemVariants}
-        >
-          Have a project in mind or want to collaborate? Feel free to reach out.
-          I&apos;m always open to discussing new opportunities.
-        </motion.p>
-
+      <ContainerWrapper size="lg" maxWidth="3xl">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-12"
-          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariants}
         >
-          <motion.div
-            whileHover={{
-              scale: 1.02,
-              y: -5,
-              transition: { duration: 0.3, ease: 'easeOut' },
-            }}
-            whileTap={{ scale: 0.98 }}
-            animate={{
-              y: [0, -2, 0],
-              transition: {
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              },
-            }}
+          <TextWrapper
+            variant="h2"
+            weight="bold"
+            align="center"
+            className="mb-4"
           >
-            <ContactInfor contact={contact} />
-          </motion.div>
+            Get In <span className="text-primary"> Touch</span>
+          </TextWrapper>
 
-          <motion.div
-            whileHover={{
-              scale: 1.02,
-              y: -5,
-              transition: { duration: 0.3, ease: 'easeOut' },
-            }}
-            whileTap={{ scale: 0.98 }}
-            animate={{
-              y: [0, 2, 0],
-              transition: {
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 2,
-              },
-            }}
+          <TextWrapper
+            variant="p"
+            color="muted"
+            align="center"
+            className="mb-8 sm:mb-12 max-w-2xl mx-auto"
           >
-            <ContactForm setLoading={setLoading} />
-          </motion.div>
+            Have a project in mind or want to collaborate? Feel free to reach
+            out. I&apos;m always open to discussing new opportunities.
+          </TextWrapper>
+
+          <GridWrapper cols={{ xs: 1, md: 2 }} gap="lg" className="items-start">
+            <motion.div
+              whileHover={{
+                scale: 1.02,
+                y: -5,
+                transition: { duration: 0.3, ease: 'easeOut' },
+              }}
+              whileTap={{ scale: 0.98 }}
+              animate={{
+                y: [0, -2, 0],
+                transition: {
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                },
+              }}
+              className="w-full"
+            >
+              <ContactInfor contact={contact} />
+            </motion.div>
+
+            <motion.div
+              whileHover={{
+                scale: 1.02,
+                y: -5,
+                transition: { duration: 0.3, ease: 'easeOut' },
+              }}
+              whileTap={{ scale: 0.98 }}
+              animate={{
+                y: [0, 2, 0],
+                transition: {
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 2,
+                },
+              }}
+              className="w-full"
+            >
+              <ContactForm setLoading={setLoading} />
+            </motion.div>
+          </GridWrapper>
         </motion.div>
-      </div>
-    </motion.section>
+      </ContainerWrapper>
+    </SelectionWrapper>
   );
 };
