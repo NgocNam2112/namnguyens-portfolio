@@ -17,7 +17,18 @@ interface ContactInforProps {
 
 const ContactInfor = ({ contact }: ContactInforProps) => {
   return (
-    <>
+    <motion.div
+      whileHover={{
+        scale: 1.02,
+        y: -5,
+        transition: { duration: 0.3, ease: 'easeOut' },
+      }}
+      whileTap={{ scale: 0.98 }}
+      animate={{
+        y: [0, -2, 0],
+      }}
+      className="w-full"
+    >
       <motion.div
         className="space-y-6 sm:space-y-8"
         variants={containerVariants}
@@ -143,7 +154,7 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
           </motion.div>
         </motion.div>
       </motion.div>
-    </>
+    </motion.div>
   );
 };
 

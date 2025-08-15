@@ -20,6 +20,19 @@ export const itemVariants = {
   },
 };
 
+export const contentVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: 'easeOut' as const,
+      delay: 0.4,
+    },
+  },
+};
+
 export const cardVariants = {
   hidden: { opacity: 0, scale: 0.9, y: 20 },
   visible: {

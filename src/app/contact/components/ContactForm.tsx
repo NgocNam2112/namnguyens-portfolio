@@ -57,87 +57,100 @@ const ContactForm = ({ setLoading }: ContactFormProps) => {
 
   return (
     <motion.div
-      className="bg-card p-4 sm:p-6 lg:p-8 rounded-lg shadow-xs w-full max-w-2xl mx-auto"
-      variants={formVariants}
-      initial="hidden"
-      animate="visible"
       whileHover={{
+        scale: 1.02,
         y: -5,
         transition: { duration: 0.3, ease: 'easeOut' },
       }}
+      whileTap={{ scale: 0.98 }}
+      animate={{
+        y: [0, 2, 0],
+      }}
+      className="w-full"
     >
-      <TextWrapper
-        variant="h3"
-        weight="semibold"
-        className="mb-4 sm:mb-6 text-center sm:text-left"
+      <motion.div
+        className="bg-card p-4 sm:p-6 lg:p-8 rounded-lg shadow-xs w-full max-w-2xl mx-auto"
+        variants={formVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover={{
+          y: -5,
+          transition: { duration: 0.3, ease: 'easeOut' },
+        }}
       >
-        Send a Message
-      </TextWrapper>
+        <TextWrapper
+          variant="h3"
+          weight="semibold"
+          className="mb-4 sm:mb-6 text-center sm:text-left"
+        >
+          Send a Message
+        </TextWrapper>
 
-      <FormProvider {...form}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-3 sm:gap-4">
-            <motion.div variants={fieldVariants} custom={0}>
-              <FormController
-                name="name"
-                control={control}
-                Field={Input}
-                fieldProps={{
-                  placeholder: 'Nam Nguyen...',
-                  label: 'Your Name',
-                  className:
-                    'w-full px-3 sm:px-4 py-2 sm:py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base',
+        <FormProvider {...form}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <motion.div variants={fieldVariants} custom={0}>
+                <FormController
+                  name="name"
+                  control={control}
+                  Field={Input}
+                  fieldProps={{
+                    placeholder: 'Nam Nguyen...',
+                    label: 'Your Name',
+                    className:
+                      'w-full px-3 sm:px-4 py-2 sm:py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base',
+                  }}
+                />
+              </motion.div>
+
+              <motion.div variants={fieldVariants} custom={1}>
+                <FormController
+                  name="email"
+                  control={control}
+                  Field={Input}
+                  fieldProps={{
+                    placeholder: 'nguyenngocnam2112hit@gmail.com',
+                    label: 'Your Email',
+                    className:
+                      'w-full px-3 sm:px-4 py-2 sm:py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base',
+                  }}
+                />
+              </motion.div>
+
+              <motion.div variants={fieldVariants} custom={2}>
+                <FormController
+                  name="message"
+                  control={control}
+                  Field={Textarea}
+                  fieldProps={{
+                    placeholder: "Hello, I'd like to talk about...",
+                    label: 'Your Message',
+                    className:
+                      'w-full px-3 sm:px-4 py-2 sm:py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base min-h-[100px] sm:min-h-[120px]',
+                  }}
+                />
+              </motion.div>
+
+              <motion.div
+                variants={buttonVariants}
+                whileHover={{
+                  scale: 1.05,
+                  transition: { duration: 0.2 },
                 }}
-              />
-            </motion.div>
-
-            <motion.div variants={fieldVariants} custom={1}>
-              <FormController
-                name="email"
-                control={control}
-                Field={Input}
-                fieldProps={{
-                  placeholder: 'nguyenngocnam2112hit@gmail.com',
-                  label: 'Your Email',
-                  className:
-                    'w-full px-3 sm:px-4 py-2 sm:py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base',
-                }}
-              />
-            </motion.div>
-
-            <motion.div variants={fieldVariants} custom={2}>
-              <FormController
-                name="message"
-                control={control}
-                Field={Textarea}
-                fieldProps={{
-                  placeholder: "Hello, I'd like to talk about...",
-                  label: 'Your Message',
-                  className:
-                    'w-full px-3 sm:px-4 py-2 sm:py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base min-h-[100px] sm:min-h-[120px]',
-                }}
-              />
-            </motion.div>
-
-            <motion.div
-              variants={buttonVariants}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.2 },
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="mt-2 sm:mt-4"
-            >
-              <Button
-                type="submit"
-                className="w-full py-2 sm:py-3 text-sm sm:text-base"
+                whileTap={{ scale: 0.95 }}
+                className="mt-2 sm:mt-4"
               >
-                Send Message
-              </Button>
-            </motion.div>
-          </div>
-        </form>
-      </FormProvider>
+                <Button
+                  type="submit"
+                  className="w-full py-2 sm:py-3 text-sm sm:text-base"
+                >
+                  Send Message
+                </Button>
+              </motion.div>
+            </div>
+          </form>
+        </FormProvider>
+      </motion.div>
     </motion.div>
   );
 };
