@@ -4,11 +4,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Category, useSkillsService } from '../hooks/useSkillsService';
 import Loading from '@/components/common/Loading';
-import TextWrapper from '@/components/common/wrapper/TextWrapper';
 import PageWrapper from '@/components/common/wrapper/PageWrapper';
 import { containerVariants } from '../constants';
 import SkillItem from './SkillItem';
-import { Button } from '@/components/ui/button';
 
 export const SkillsComponent = () => {
   const categories: Category[] = ['frontend', 'backend', 'tools'];
@@ -25,12 +23,13 @@ export const SkillsComponent = () => {
           My <span className="text-primary"> Skills</span>
         </>
       }
+      className="overflow-y-auto overflow-x-hidden"
     >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="h-full overflow-hidden flex flex-col"
+        className="h-full overflow-hidden flex flex-col pb-10"
       >
         <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
           <Tabs defaultValue="frontend" className="w-full h-full flex flex-col">
@@ -60,7 +59,7 @@ export const SkillsComponent = () => {
                   value={c}
                   className="mt-0 flex-1 flex flex-col min-h-0 h-full"
                 >
-                  <div className="flex-1 overflow-y-auto overflow-x-hidden pr-2 scrollbar-thin scrollbar-thumb-primary/30 scrollbar-track-transparent hover:scrollbar-thumb-primary/50">
+                  <div className="flex-1 custom-scrollbar">
                     <motion.div
                       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
                       variants={containerVariants}

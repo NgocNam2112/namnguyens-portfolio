@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/carousel';
 import ProjectCard from './ProjectCard';
 import { Project } from '../hooks/useProjectsService';
+import ProjectDetailModal from './ProjectDetailModal';
 
 interface ProjectCardWrapperProps {
   projects?: Project[];
@@ -23,52 +24,73 @@ const ProjectCardWrapper = ({
   setSelectedProject,
 }: ProjectCardWrapperProps) => {
   return (
-    <motion.div className="relative" variants={carouselVariants}>
-      <Carousel
-        opts={{
-          align: 'center',
-          loop: true,
-        }}
-        className="w-full select-none"
+    <>
+      <motion.div
+        className="relative flex flex-col"
+        variants={carouselVariants}
+        initial="hidden"
+        animate="visible"
       >
-        <CarouselContent className="-ml-2 md:-ml-4 gap-4">
-          {projects?.map((project, key) => (
-            <CarouselItem
-              key={key}
-              className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: {
-                    duration: 0.5,
-                    delay: key * 0.1,
-                    ease: 'easeOut',
-                  },
-                }}
-                whileHover={{
-                  scale: 1.02,
-                  y: -5,
-                  transition: { duration: 0.3, ease: 'easeOut' },
-                }}
-                whileTap={{ scale: 0.98 }}
+        <Carousel
+          opts={{
+            align: 'start',
+            loop: true,
+            slidesToScroll: 1,
+          }}
+          className="w-full select-none flex flex-col w-[calc(100vw-64px)] sm:w-full gap-4 mx-auto"
+        >
+          <motion.div
+            className="justify-end gap-4 hidden sm:flex"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.6,
+              ease: 'easeOut' as const,
+            }}
+          >
+            <CarouselPrevious />
+            <CarouselNext />
+          </motion.div>
+          <CarouselContent className="flex w-[calc(100vw-64px)] sm:w-full">
+            {projects?.map((project, key) => (
+              <CarouselItem
+                key={key}
+                className="basis-full md:basis-1/2 lg:basis-1/3 px-0 sm:px-2"
               >
                 <ProjectCard
                   project={project}
                   selectedProject={selectedProject}
                   setSelectedProject={setSelectedProject}
                 />
-              </motion.div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
-    </motion.div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+
+          <motion.div
+            className="flex justify-center gap-4 sm:hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.6,
+              ease: 'easeOut' as const,
+            }}
+          >
+            <CarouselPrevious />
+            <CarouselNext />
+          </motion.div>
+        </Carousel>
+      </motion.div>
+
+      {selectedProject && (
+        <ProjectDetailModal
+          open={!!selectedProject}
+          project={selectedProject!}
+          onSelectProject={setSelectedProject}
+        />
+      )}
+    </>
   );
 };
 

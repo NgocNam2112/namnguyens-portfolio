@@ -3,52 +3,47 @@
 import React, { useState } from 'react';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '../../../components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Project } from '../hooks/useProjectsService';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-const ProjectDetailModal = ({
-  project,
-  onSelectProject,
-}: {
+interface ProjectDetailModalProps {
+  open: boolean;
   project: Project;
   onSelectProject: (project: Project | null) => void;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
+}
 
-  const handleOpenChange = (open: boolean) => {
-    setIsOpen(open);
-    if (!open) {
-      onSelectProject(null);
-    }
-  };
-
+const ProjectDetailModal = ({
+  open,
+  project,
+  onSelectProject,
+}: ProjectDetailModalProps) => {
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button
-          className="px-6 py-2 rounded-md font-semibold cursor-pointer cosmic-button"
-          onClick={() => onSelectProject(project)}
-        >
-          View Details
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open}>
       <DialogContent
-        className="max-h-4/5 flex flex-col w-[40vw]"
+        className="max-h-4/5 flex flex-col sm:w-[40vw] md:w-[75%] w-[90%] custom-scrollbar"
         aria-describedby={undefined}
         onInteractOutside={event => {
           event.preventDefault();
         }}
       >
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-1.5 right-1.5 text-white bg-inherit z-50"
+          onClick={() => onSelectProject(null)}
+        >
+          <X className="h-6 w-6" />
+        </Button>
         <DialogHeader className="flex-shrink-0 border-b pb-4">
           <DialogTitle className="text-2xl font-bold text-white text-primary">
             {project.title}

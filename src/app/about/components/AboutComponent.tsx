@@ -21,6 +21,8 @@ const AboutComponent = () => {
           About <span className="text-primary"> Me</span>
         </>
       }
+      className="overflow-y-auto overflow-x-hidden"
+      wrapperClassName="overflow-hidden pb-10"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <AboutIntro title={about?.[0]?.title} />

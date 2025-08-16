@@ -5,12 +5,15 @@ import {
   contentVariants,
   itemVariants,
 } from '@/app/about/constants';
+import { cn } from '@/lib/utils';
 
 interface PageWrapperProps {
   children: React.ReactNode;
   headline: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
+  className?: string;
+  wrapperClassName?: string;
 }
 
 const PageWrapper = ({
@@ -18,18 +21,25 @@ const PageWrapper = ({
   headline,
   description,
   footer,
+  className,
+  wrapperClassName,
 }: PageWrapperProps) => {
   return (
     <motion.div
-      className="pt-20 relative h-screen flex flex-col pb-4 sm:pb-0"
+      className="container pt-20 relative h-screen flex flex-col overflow-x-hidden"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       variants={containerVariants}
     >
-      <div className="mx-auto max-w-5xl flex flex-col flex-1 overflow-hidden px-4 sm:px-0">
+      <div
+        className={cn(
+          'mx-auto max-w-5xl flex flex-col flex-1',
+          wrapperClassName || 'overflow-hidden'
+        )}
+      >
         <motion.h2
-          className="text-3xl md:text-4xl font-bold mb-4 text-center flex-shrink-0"
+          className="text-3xl md:text-4xl font-bold mb-4 text-center flex-shrink-0 mt-6 sm:mt-10"
           variants={itemVariants}
         >
           {headline}
@@ -37,7 +47,7 @@ const PageWrapper = ({
 
         {description && (
           <motion.p
-            className="text-center text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto flex-shrink-0"
+            className="text-center text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto flex-shrink-0"
             variants={itemVariants}
           >
             {description}
@@ -45,7 +55,7 @@ const PageWrapper = ({
         )}
 
         <motion.div
-          className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-primary/30 scrollbar-track-transparent hover:scrollbar-thumb-primary/50"
+          className={cn('relative flex-1 custom-scrollbar', className)}
           variants={contentVariants}
         >
           {children}
