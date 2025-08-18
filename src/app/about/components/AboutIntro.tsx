@@ -22,7 +22,7 @@ const AboutIntro: React.FC<AboutIntroProps> = ({ title }) => {
       </TextWrapper>
 
       <TextWrapper variant="p" color="muted" className="text-justify">
-        I bring <b className="text-primary">4+ years</b> of frontend and{' '}
+        I bring <b className="text-primary">5+ years</b> of frontend and{' '}
         <b className="text-primary">2+ years</b> of backend experience building
         responsive, scalable web applications. On the frontend I work with
         <b className="text-primary"> NextJS, ReactJS, NuxtJS, VueJS</b>; on the

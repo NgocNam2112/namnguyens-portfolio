@@ -1,4 +1,4 @@
-import { Linkedin, Mail, MapPin, Youtube } from 'lucide-react';
+import { Linkedin, Mail, MapPin, Youtube, Github } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -118,39 +118,31 @@ const ContactInfor = ({ contact }: ContactInforProps) => {
             className="flex space-x-4 justify-center sm:justify-start"
             variants={containerVariants}
           >
-            <motion.div
-              whileHover={{
-                scale: 1.2,
-                y: -3,
-                transition: { duration: 0.2 },
-              }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Link
-                href={contact?.[0]?.socials[0]?.url ?? ''}
-                target="_blank"
-                rel="noopener noreferrer"
+            {contact?.[0]?.socials.map(social => (
+              <motion.div
+                key={social.platform}
+                whileHover={{
+                  scale: 1.2,
+                  y: -3,
+                  transition: { duration: 0.2 },
+                }}
+                whileTap={{ scale: 0.9 }}
               >
-                <Linkedin className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-primary/80 transition-colors" />
-              </Link>
-            </motion.div>
-
-            <motion.div
-              whileHover={{
-                scale: 1.2,
-                y: -3,
-                transition: { duration: 0.2 },
-              }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Link
-                href={contact?.[0]?.socials[1]?.url ?? ''}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Youtube className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-primary/80 transition-colors" />
-              </Link>
-            </motion.div>
+                <Link
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {social.platform === 'linkedin' ? (
+                    <Linkedin className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-primary/80 transition-colors" />
+                  ) : social.platform === 'youtube' ? (
+                    <Youtube className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-primary/80 transition-colors" />
+                  ) : social.platform === 'github' ? (
+                    <Github className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-primary/80 transition-colors" />
+                  ) : null}
+                </Link>
+              </motion.div>
+            ))}
           </motion.div>
         </motion.div>
       </motion.div>
