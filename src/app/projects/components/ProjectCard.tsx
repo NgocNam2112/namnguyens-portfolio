@@ -27,7 +27,6 @@ const ProjectCard = ({
   return (
     <motion.div
       className="relative group bg-card rounded-lg overflow-hidden shadow-xs card-hover h-full"
-      variants={cardVariants}
       initial="hidden"
       animate="visible"
       whileHover={{

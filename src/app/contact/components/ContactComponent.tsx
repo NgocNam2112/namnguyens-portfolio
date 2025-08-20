@@ -24,7 +24,7 @@ export const ContactComponent = () => {
       }
       description="Have a project in mind or want to collaborate? Feel free to reach out. I'm always open to discussing new opportunities."
       className="overflow-y-auto overflow-x-hidden"
-      wrapperClassName="overflow-hidden pb-10"
+      wrapperClassName="overflow-hidden pb-10 sm:pb-0"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <ContactInfor contact={contact} />

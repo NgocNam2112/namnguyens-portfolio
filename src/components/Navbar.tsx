@@ -1,11 +1,10 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Menu, X, Circle } from 'lucide-react';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const navItems = [
   { name: 'Home', href: '/' },
@@ -16,111 +15,51 @@ const navItems = [
 ];
 
 export const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isNavHovered, setIsNavHovered] = useState(false);
   const pathname = usePathname();
 
-  const isActiveRoute = (href: string) => {
-    if (href === '/') {
-      return pathname === '/';
-    }
-    return pathname.startsWith(href);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.screenY > 10);
+    };
 
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
-    <nav className={cn('fixed w-full z-40 transition-all duration-300 py-5')}>
+    <nav
+      className={cn(
+        'fixed w-full z-40 transition-all duration-300',
+        isScrolled ? 'py-3 bg-background/80 backdrop-blur-md shadow-xs' : 'py-5'
+      )}
+    >
       <div className="container flex items-center justify-between">
         <Link
           className="text-xl font-bold text-primary flex items-center"
           href="/"
         >
           <span className="relative z-10">
-            <span className="text-glow text-foreground">Nam</span> Portfolio
+            <span className="text-glow text-foreground"> Nam </span> Nguyen
           </span>
         </Link>
 
-        <div className="hidden md:block relative">
-          <div
-            className="relative group"
-            onMouseEnter={() => setIsNavHovered(true)}
-            onMouseLeave={() => setIsNavHovered(false)}
-          >
-            <motion.div
-              className="flex items-center relative"
-              animate={{
-                width: isNavHovered ? 'auto' : '48px',
-              }}
-              transition={{
-                duration: 0.6,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
+        {/* desktop nav */}
+        <div className="hidden md:flex space-x-8">
+          {navItems.map((item, key) => (
+            <Link
+              key={key}
+              href={item.href}
+              className={cn(
+                'transition-colors duration-300',
+                pathname === item.href
+                  ? 'text-primary font-medium'
+                  : 'text-foreground/80 hover:text-primary'
+              )}
             >
-              <AnimatePresence>
-                {isNavHovered && (
-                  <motion.div
-                    className="absolute right-full bottom-0 flex items-center space-x-6 mr-4 px-6 py-3 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 30 }}
-                    transition={{
-                      duration: 0.6,
-                      ease: [0.25, 0.46, 0.45, 0.94],
-                      staggerChildren: 0.15,
-                    }}
-                  >
-                    {navItems.map((item, key) => (
-                      <motion.div key={key}>
-                        <Link
-                          href={item.href}
-                          className={cn(
-                            'text-foreground/80 hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap',
-                            isActiveRoute(item.href) &&
-                              'text-primary font-semibold'
-                          )}
-                        >
-                          <motion.span
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 40 }}
-                            transition={{
-                              duration: 0.5,
-                              ease: [0.25, 0.46, 0.45, 0.94],
-                            }}
-                            whileHover={{
-                              y: -3,
-                              transition: { duration: 0.2 },
-                            }}
-                          >
-                            {item.name}
-                          </motion.span>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <motion.div
-                className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary bg-primary/20 flex items-center justify-center shadow-lg"
-                whileHover={{ scale: 1.1 }}
-                animate={{
-                  scale: isNavHovered ? 1.1 : 1,
-                  borderColor: isNavHovered
-                    ? 'hsl(var(--primary))'
-                    : 'hsl(var(--primary))',
-                  backgroundColor: isNavHovered
-                    ? 'hsl(var(--primary) / 0.3)'
-                    : 'hsl(var(--primary) / 0.2)',
-                }}
-                transition={{
-                  duration: 0.4,
-                  ease: 'easeOut',
-                }}
-              >
-                <Circle className="w-5 h-5 text-primary drop-shadow-lg" />
-              </motion.div>
-            </motion.div>
-          </div>
+              {item.name}
+            </Link>
+          ))}
         </div>
 
         <button
@@ -128,12 +67,12 @@ export const Navbar = () => {
           className="md:hidden p-2 text-foreground z-50"
           aria-label={isMenuOpen ? 'Close Menu' : 'Open Menu'}
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}{' '}
         </button>
 
         <div
           className={cn(
-            'fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center',
+            'fixed inset-0 bg-background/95 backdroup-blur-md z-40 flex flex-col items-center justify-center',
             'transition-all duration-300 md:hidden',
             isMenuOpen
               ? 'opacity-100 pointer-events-auto'
@@ -142,17 +81,19 @@ export const Navbar = () => {
         >
           <div className="flex flex-col space-y-8 text-xl">
             {navItems.map((item, key) => (
-              <a
+              <Link
                 key={key}
                 href={item.href}
                 className={cn(
-                  'text-foreground/80 hover:text-primary transition-colors duration-300',
-                  isActiveRoute(item.href) && 'text-primary font-semibold'
+                  'transition-colors duration-300',
+                  pathname === item.href
+                    ? 'text-primary font-medium'
+                    : 'text-foreground/80 hover:text-primary'
                 )}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
